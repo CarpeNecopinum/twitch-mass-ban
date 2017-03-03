@@ -1,12 +1,11 @@
 require('dotenv').config();
 const _globals_ = require('./lib/globals');
 
-let initPromise1 = new Promise((resolve, reject) => {
-  require('./lib/modStatus');
-  resolve();
-});
-initPromise1.catch(() => { console.log(); });
-initPromise1.then(() => {
+const modStatus = require('./lib/modStatus');
+
+modStatus()
+.catch((e) => { console.log(e); })
+.then(() => {
   let initPromise2 = new Promise((resolve, reject) => {
     require('./lib/twitchConnect');
     require('./lib/twitchConnect').on('disconnected', (reason) => {
